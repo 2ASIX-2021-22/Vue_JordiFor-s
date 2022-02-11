@@ -38,6 +38,13 @@ app.component('product-display', {
           v-on:click="addToCart">
           Add to Cart
         </button>
+       <button 
+          class="button" 
+          :class="{ disabledButton: !inStock }" 
+          :disabled="!inStock" 
+          v-on:click="subToCart">
+          Sub to Cart
+        </button>        
       </div>
     </div>
     <review-list v-if="reviews.length" :reviews="reviews"></review-list>
@@ -65,6 +72,9 @@ app.component('product-display', {
         },
         addReview(review) {
             this.reviews.push(review)
+        },
+        subToCart(){
+            this.$emit('sub-to-cart', this.variants[this.selectedVariant].id)
         }
     },
     computed: {
